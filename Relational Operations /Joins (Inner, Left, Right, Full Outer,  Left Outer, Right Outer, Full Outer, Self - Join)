@@ -48,7 +48,15 @@ FROM Table_A
 FULL OUTER JOIN Table_B ON Table_A.column_name = Table_B.column_name
 WHERE Table_A.column_name IS NULL OR Table_B.column_name IS NULL;
 
+
+
+
 ----- Customer/Employee/Manager Tables Examples ----------------
+
+
+
+
+
 
 -- INNER JOIN example: Returns only customers who have placed orders
 -- Shows customer info along with their order details
