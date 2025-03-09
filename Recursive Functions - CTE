@@ -1,0 +1,104 @@
+/*
+Common Table Expressions (CTEs) are a SQL feature that allows you to define a 
+temporary result set within a SELECT, INSERT, UPDATE, or DELETE statement. CTEs 
+make complex queries more readable and maintainable by breaking them into smaller, 
+named, and reusable parts. CTEs are especially useful when dealing with recursive 
+queries or when you need to reference the same subquery multiple times within a 
+larger query.
+Here's the basic syntax for creating and using a CTE:
+*/
+
+WITH cte_name (column1, column2, ...) AS (
+    -- Subquery that defines the CTE
+    SELECT ...
+    FROM ...
+    WHERE ...
+)
+-- The main query that uses the CTE
+SELECT ...
+FROM cte_name
+WHERE ...
+
+/*
+Here are some key characteristics and benefits of Common Table Expressions:
+1. **Readability**: CTEs make complex SQL queries more readable by breaking them into 
+    smaller, named, and self-contained parts. This improves the understanding of the 
+    query's logic.
+2. **Reusability**: You can reuse a CTE multiple times within the same query, reducing 
+    the need to duplicate subquery logic.
+3. **Recursive Queries**: CTEs are commonly used for recursive queries, where a query 
+    refers to its own output. This is especially useful for hierarchical data, such as 
+    organizational structures or bill-of-materials.
+4. **Recursive CTEs**: SQL also supports recursive CTEs (known as recursive common table 
+    expressions) that allow you to define recursive queries. These are defined using a 
+    UNION ALL clause and typically involve a base case and a recursive case.
+Here's an example of a simple CTE that calculates the total sales per category:
+*/
+
+WITH CategorySales AS (
+    SELECT
+        Category,
+        SUM(SalesAmount) AS TotalSales
+    FROM
+        Sales
+    GROUP BY
+        Category
+)
+SELECT
+    Category,
+    TotalSales
+FROM
+    CategorySales
+WHERE
+    TotalSales > 10000;
+
+/*
+In this example, `CategorySales` is the name of the CTE, and it calculates the total 
+sales per category. The main query then selects categories with total sales greater 
+than $10,000.
+And here's an example of a recursive CTE that can be used to traverse an organizational 
+hierarchy:
+*/
+
+WITH RecursiveCTE AS (
+    SELECT
+        EmployeeID,
+        EmployeeName,
+        ManagerID
+    FROM
+        Employees
+    WHERE
+        ManagerID IS NULL  -- Anchor member (top-level managers)
+    
+    UNION ALL
+    
+    SELECT
+        E.EmployeeID,
+        E.EmployeeName,
+        E.ManagerID
+    FROM
+        Employees E
+    INNER JOIN
+        RecursiveCTE RC
+    ON
+        E.ManagerID = RC.EmployeeID  -- Recursive member (employees reporting to managers)
+)
+SELECT
+    EmployeeID,
+    EmployeeName,
+    ManagerID
+FROM
+    RecursiveCTE;
+
+/*
+In this example, the recursive CTE is used to navigate through an employee hierarchy, 
+starting with top-level managers and recursively retrieving employees who report to them.
+CTEs are a powerful SQL feature that can greatly enhance the readability and 
+maintainability of your queries, especially in situations where complex subqueries or 
+recursive operations are involved.
+Why use CTEs?
+- Executed once
+- CTE is then stored in memory
+- Improves query performance Improving organization of queries Referencing other CTEs 
+    Referencing itself ( SELF JOIN )
+*/
