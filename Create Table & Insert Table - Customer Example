@@ -21,11 +21,10 @@ insert into customer (customer_id,customer_name,age,gender,phone_number,bill_amo
 
 COMMIT
 
+_______________________
 
-OR
-
-INSERT INTO CUSTOMER VALUES(8,'Rohit',28,'Male',852159,350);
-insert into customer values(9,'Ramya',33,'Female',NULL,11500);
+INSERT INTO CUSTOMER VALUES(8,'Rohit',28,'Male',852159,350); # adding values to each of the above vars
+insert into customer values(9,'Ramya',33,'Female',NULL,11500); # adding values to each of the above vars
 
 COMMIT
 
