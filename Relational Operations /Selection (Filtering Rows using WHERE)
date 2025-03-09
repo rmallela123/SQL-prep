@@ -1,0 +1,11 @@
+----- SELECTION --------
+-- Retrieve employees who earn more than 50000 and belong to the IT department
+SELECT employee_name, salary, department
+FROM Employees
+WHERE salary > 50000 AND department = 'IT';
+
+________________________________
+---- Template --------
+SELECT column1, column2 
+FROM table_name
+WHERE condition1 AND condition2;
