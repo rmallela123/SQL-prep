@@ -1,0 +1,88 @@
+---- Numeric Functions -----
+
+DECLARE NUM1 INT = -245.66,
+        NUM2 FLOAT = 0.25,
+	NUM3 FLOAT = -0.8;
+
+SELECT ABS(NUM),      -- 245
+       ACOS(NUM2),    -- 1.31811607165282
+       ASIN(NUM3),    -- -0.927295218001612
+       ATAN(NUM2),    -- 0.244978663126864
+       CEILING(NUM),  -- -245
+       COS(NUM2),     -- 0.968912421710645
+       COT(NUM2),     -- 3.91631736464594
+       DEGREES(NUM2), -- 14.3239448782706
+       EXP(NUM2),     -- 1.28402541668774
+       FLOOR(NUM3),   -- -1
+       ROUND(NUM, 1), -- -245
+       SIGN(NUM3),    -- -1
+       SIN(NUM3),     -- -0.717356090899523
+       TAN(NUM3)      -- -1.02963855705036
+
+-- [AVG]
+SELECT AVG(ListPrice) 
+   FROM [Production].[Product];
+-- Output:  437.7976	 
+
+-- [COUNT]
+SELECT COUNT(ProductID) AS Total 
+   FROM [Production].[Product]; 
+-- Output: 505
+
+-- [MAX/MIN]
+SELECT MAX(ListPrice), MIN(ListPrice)
+    FROM [Production].[Product]; 
+-- Output: 3578.27, 0.00
+
+-- [PI]
+SELECT PI(); 
+-- Output: 3.14159265358979
+
+-- [POWER]
+SELECT POWER(4, 2); 
+-- Output: 16
+
+-- [RADIANS]
+SELECT RADIANS(180); 
+-- Output: 3
+
+-- [RANDOM]
+SELECT RAND()
+-- Output: 0.210903950196124
+SELECT FLOOR(RAND()*(10-5)+5); 
+-- Output: 6
+
+-- [SQRT]
+SELECT SQRT(64)
+-- Output: 8
+
+-- [SUM]
+SELECT SUM(ListPrice) 
+   FROM [Production].[Product]; 
+-- Output: 221087.79
+
+-- [Syntax]
+-- ABS(number)        absolute (positive) value of a number
+-- ACOS(number)       num: -1 to 1 | arc cosine of a number
+-- ASIN(number)       num: -1 to 1 | arc sine of a number
+-- ATAN(number)       arc tangent of a number
+-- AVG(expression)    average value of an expression
+-- CEILING(number)    smallest integer value >= number
+-- COS(number)        cosine of a number
+-- COT(number)        cotangent of a number
+-- COUNT(expression)  number of records
+-- DEGREES(number)    radian value into degrees
+-- EXP(number)        e raised to the power of the number
+-- FLOOR(number)      largest integer value <= number
+-- MAX(expression)    max value in a set of values
+-- MIN(expression)    min value in a set of values
+-- PI()               value of PI
+-- POWER(x, y)        power of another number
+-- RADIANS(number)    degree value into radians
+-- RAND(seed)         random number between 0 and 1 
+-- ROUND(num, decimals) rounds to a decimal places
+-- SIGN(number)        sign of a number -1, 0 or 1
+-- SIN(number)        sine of a number
+-- SQRT(number)       square root of a number
+-- SUM(expression)    sum of a set of values
+-- TAN(number)        tangent of a number
