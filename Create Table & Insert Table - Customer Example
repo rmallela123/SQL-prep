@@ -6,8 +6,10 @@ CREATE TABLE customer (
     phone_number    NUMBER,
     bill_amount     FLOAT
 );
+______________________
 
 # Create Table and assign each variable you want its own variable type, based on use case.
+_____________________
 
 insert into customer (customer_id,customer_name,age,gender,phone_number,bill_amount) VALUES(1,'Ajay',35,'Male','Bangalore',50000);
 insert into customer (customer_id,customer_name,age,gender,phone_number,bill_amount) VALUES(2,'Ramesh',21,'Male','Mysore',15000);
@@ -19,4 +21,15 @@ insert into customer (customer_id,customer_name,age,gender,phone_number,bill_amo
 
 COMMIT
 
+
+OR
+
+INSERT INTO CUSTOMER VALUES(8,'Rohit',28,'Male',852159,350);
+insert into customer values(9,'Ramya',33,'Female',NULL,11500);
+
+COMMIT
+
+_______________________
+
 # Insert values into variables created in columns basde on use case. SYNTAX: INSERT INTO CUSTOMER (variable, variable, variable, etc.) VALUES(order #, variable value, variable value, variable value, etc.)
+# INSERT: add new rows/data to the table.
