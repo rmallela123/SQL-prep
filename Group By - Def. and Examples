@@ -1,0 +1,98 @@
+Group By Functions:
+
+* Summarizing Data Per Category: Helps in grouping data based on specific columns.
+* Combining with Joins: When working with multiple tables, GROUP BY ensures aggregated results make sense across related datasets.
+* Filtering Aggregated Results: Works with HAVING to filter grouped records, allowing refined analysis beyond raw data.
+* Avoiding Duplicates in Aggregations: Ensures that results are grouped properly, preventing redundant or misleading data when counting or summing.
+* Interacting with Different Data Types: Works seamlessly across numerical, categorical, and date-based columns to analyze trends.
+
+
+-- Selects the maximum age for each gender from the CUSTOMER table 
+
+SELECT MAX(AGE), 
+GENDER FROM CUSTOMER 
+GROUP BY GENDER;  
+
+-- Selects the minimum age for each gender from the CUSTOMER table  
+
+SELECT MIN(AGE), GENDER  
+FROM CUSTOMER  
+GROUP BY GENDER;  
+
+-- Selects the maximum age along with the corresponding city and gender  
+-- Groups the results by both CITY and GENDER  
+
+SELECT MAX(AGE), CITY, GENDER  
+FROM CUSTOMER  
+GROUP BY CITY, GENDER;  
+
+-- Calculates the total sum of BILL_AMOUNT for each city  
+-- Groups results by CITY to get city-wise bill totals  
+
+SELECT SUM(BILL_AMOUNT), CITY  
+FROM CUSTOMER  
+GROUP BY CITY;  
+
+-- Calculates the total sum of BILL_AMOUNT for 'Bangalore' only  
+-- Filters records for 'Bangalore' before grouping  
+
+SELECT SUM(BILL_AMOUNT), CITY  
+FROM CUSTOMER  
+WHERE CITY = 'Bangalore'  
+GROUP BY CITY;  
+
+-- Calculates the total sum of BILL_AMOUNT for each city  
+-- Sorts results in descending order by the sum of BILL_AMOUNT  
+
+SELECT SUM(BILL_AMOUNT), CITY  
+FROM CUSTOMER  
+GROUP BY CITY  
+ORDER BY 1 DESC;  
+
+-- Retrieves customer details along with the product they purchased  
+-- Uses INNER JOIN to combine CUSTOMER and ORDERS based on CUSTOMER_ID 
+
+SELECT CUSTOMER_NAME, AGE, CITY, PRODUCT_NAME  
+FROM ECUSTOMER EC  
+INNER JOIN EORDERS EO  
+ON EC.CUSTOMER_ID = EO.CUSTOMER_ID;  
+
+-- Finds the minimum age of customers in each city who have placed an order  
+-- Filters results to show only those cities where the minimum age is greater than 30
+
+SELECT MIN(AGE), CITY  
+FROM ECUSTOMER EC  
+INNER JOIN EORDERS EO  
+ON EC.CUSTOMER_ID = EO.CUSTOMER_ID  
+GROUP BY CITY  
+HAVING MIN(AGE) > 30;  
+
+-- Calculates the average BILL_AMOUNT for each city  
+-- Displays only those cities where the average BILL_AMOUNT is greater than 5000
+
+SELECT AVG(BILL_AMOUNT), CITY  
+FROM CUSTOMER  
+GROUP BY CITY  
+HAVING AVG(BILL_AMOUNT) > 5000;  
+
+-- Calculates the maximum age of customers from Bangalore and Mysore  
+-- Groups results by city  
+-- Displays only those cities where the maximum age is greater than 50  
+-- Orders results by maximum age in ascending order  
+
+SELECT MAX(AGE), CITY  
+FROM CUSTOMER  
+WHERE CITY IN ('Bangalore','Mysore')  
+GROUP BY CITY  
+HAVING MAX(AGE) > 50  
+ORDER BY 1; # Order by First Column in SELECT statement.
+
+______________
+## ABOVE EXAMPLE but with MULTIPLE COLUMNS.
+
+SELECT CUSTOMER_ID, CUSTOMER_NAME, BALANCE  
+FROM CUSTOMER  
+ORDER BY 2;  -- Sorts by CUSTOMER_NAME (the second column)
+________________
+## Sorts First Column in Descending Order
+ORDER BY 1 DESC;  
