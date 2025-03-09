@@ -1,0 +1,42 @@
+-- CASE STATEMENT
+SELECT 
+    id,
+    home_goal,
+    away_goal,
+CASE WHEN home_goal > away_goal THEN 'Home Team Win'
+    WHEN home_goal < away_goal THEN 'Away Team Win'
+    ELSE 'Tie' 
+    END AS outcome FROM match
+WHERE season = '2013/2014';
+
+-- CASE IN FILTER
+SELECT 
+    date, 
+    season,
+    CASE WHEN hometeam_id = 8455 AND home_goal > away_goal THEN 'Chelsea home win!'
+        WHEN awayteam_id = 8455 AND home_goal < away_goal THEN 'Chelsea away win!' 
+        END AS outcome
+FROM match
+WHERE CASE WHEN hometeam_id = 8455 AND home_goal > away_goal THEN 'Chelsea home win' 
+        WHEN awayteam_id = 8455 AND home_goal < away_goal win THEN 'Chelsea away win'
+        END IS NOT NULL;
+
+-- CASE IN AGGREGATION
+SELECT
+    season,
+    COUNT(
+        CASE WHEN hometeam_id = 8650 AND home_goal > away_goal THEN id 
+            END) AS home_wins
+FROM match
+GROUP BY season;
+
+-- AVERAGE/PERC
+SELECT
+    season,
+    AVG(CASE WHEN hometeam_id = 8455 AND home_goal > away_goal THEN 1
+            WHEN hometeam_id = 8455 AND home_goal < away_goal THEN 0
+            END) AS pct_homewins,
+    AVG(CASE WHEN awayteam_id = 8455 AND away_goal > home_goal THEN 1
+            WHEN awayteam_id = 8455 AND away_goal < home_goal THEN 0
+            END) AS pct_awaywins FROM match
+GROUP BY season;
