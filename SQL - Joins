@@ -1,0 +1,78 @@
+#### Inner Join
+
+This is the most common and also the default join type.
+```sql
+SELECT column_name(s)
+FROM Table_A
+INNER JOIN Table_B ON Table_A.column_name = Table_B.column_name;
+```
+
+![Inner Join](/assets/inner-join.png)
+
+#### Left Join General Form
+
+When you want include unmatched records from the left table.
+```sql
+SELECT column_name(s)
+FROM Table_A
+LEFT JOIN Table_B ON Table_A.column_name = Table_B.column_name;
+```
+
+![Left Join](/assets/left-join.png)
+
+#### Right Join General Form
+
+When you want to include unmatched records from the right table.
+```sql
+SELECT column_name(s)
+FROM Table_A
+RIGHT JOIN Table_B ON Table_A.column_name = Table_B.column_name;
+```
+
+![Right Join](/assets/right-join.png)
+
+#### Full Outer Join
+
+When you want to include unmatched records from both tables.
+```sql
+SELECT column_name(s)
+FROM Table_A
+FULL OUTER JOIN Table_B ON Table_A.column_name = Table_B.column_name;
+```
+
+![Full Outer](/assets/full-outer-join.png)
+
+FULL JOIN is commonly used in conjunction with aggregations to understand the amount of overlap between two tables.
+
+#### Full Outer Join If Null
+
+Find only the unmatched rows in your tables.
+```sql
+SELECT column_name(s)
+FROM Table_A
+FULL OUTER JOIN Table_B ON Table_A.column_name = Table_B.column_name;
+WHERE Table_A.column_name IS NULL OR Table_B.column_name IS NULL
+```
+
+![Full outer join with nulls only](/assets/full-outer-join-if-null.png)
+_____________________________________________
+
+select ec.customer_id,ec.customer_name,ec.age,eo.product_name,eo.order_date 
+from ecustomer ec INNER JOIN eorders eo
+ON ec.customer_id = eo.customer_id
+
+select ec.customer_id,ec.customer_name,ec.age,eo.product_name,eo.order_date 
+from ecustomer ec left outer JOIN eorders eo
+ON ec.customer_id = eo.customer_id
+
+select eo.customer_id,ec.customer_name,ec.age,eo.product_name,eo.order_date 
+from ecustomer ec RIGHT OUTER JOIN eorders eo
+ON ec.customer_id = eo.customer_id
+
+select ec.customer_id,ec.customer_name,ec.age,eo.product_name,eo.order_date 
+from ecustomer ec FULL OUTER JOIN eorders eo
+ON ec.customer_id = eo.customer_id
+
+SELECT EMP.EMPLOYEE_NAME AS EMPLOYEE_NAME, MAN.EMPLOYEE_NAME AS MANAGER_NAME 
+FROM MANAGERS MAN, MANAGERS EMP
+WHERE MAN.EMPLOYEE_ID = EMP.REPORTING_MANAGER_ID
