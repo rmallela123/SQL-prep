@@ -1,0 +1,22 @@
+DELETE FROM CUSTOMER
+WHERE CUSTOMER_ID IN (2,5)
+
+# This deletes the rows from the CUSTOMER table where CUSTOMER_ID is either 2 or 5. 
+If no matching records exist, nothing happens. CAN BE rolled back.
+
+DELETE FROM CUSTOMER
+WHERE CUSTOMER_ID = 5
+
+# This attempts to delete the row where CUSTOMER_ID = 5.
+However, if the first DELETE statement already removed CUSTOMER_ID = 5, this statement does nothing.
+
+commit
+# This finalizes all changes made by the DELETE statements.
+
+________________________
+
+TRUNCATE TABLE CUSTOMER;
+
+# removes all records without filtering.
+# faster than delete, as it doesnt log indivdual row deletions. 
+# CANNOT be rolled back (unless inside a DBMS transaction).
