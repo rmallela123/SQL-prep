@@ -1,0 +1,68 @@
+CONCAT() - join 2 or more strings together.
+
+example: SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM Employees;
+
+template: SELECT CONCAT(string1, string2, ...) AS alias_name FROM table_name;
+__________________________________
+UPPER() & LOWER() - convert text to lower and upper case.
+
+example: 
+SELECT UPPER(employee_name) AS name_upper, LOWER(employee_name) AS name_lower FROM Employees;
+
+template: 
+SELECT UPPER(column_name) AS alias_name FROM table_name;
+SELECT LOWER(column_name) AS alias_name FROM table_name;
+____________________________________
+SUBSTRING() - extract part of string
+
+example: 
+SELECT SUBSTRING(employee_name, 1, 3) AS name_initials FROM Employees;
+template:
+SELECT SUBSTRING(column_name, start_position, length) AS alias_name FROM table_name;
+____________________________________
+TRIM() - remove spaces from both sides
+
+example: 
+SELECT TRIM('  John Doe  ') AS trimmed_name;
+template: 
+SELECT TRIM(column_name) AS alias_name FROM table_name;
+SELECT LTRIM(column_name) AS alias_name FROM table_name;
+SELECT RTRIM(column_name) AS alias_name FROM table_name;
+____________________________________
+REPLACE() - replace part of a string.
+
+example: 
+SELECT REPLACE(employee_name, 'John', 'Jonathan') AS updated_name FROM Employees;
+template: 
+SELECT REPLACE(column_name, 'old_value', 'new_value') AS alias_name FROM table_name;
+____________________________________
+LENGTH() - get string length
+
+example: 
+SELECT LENGTH(employee_name) AS name_length FROM Employees;
+template: 
+SELECT LENGTH(column_name) AS alias_name FROM table_name;
+____________________________________
+UNION() - combine results; remove duplicate rows
+
+example: 
+SELECT employee_id, employee_name FROM Employees
+UNION
+SELECT manager_id, manager_name FROM Managers;
+
+template: 
+SELECT column1, column2 FROM table1
+UNION
+SELECT column1, column2 FROM table2;
+____________________________________
+UNION ALL - combine results; keep duplicate rows
+
+example: 
+SELECT employee_id, employee_name FROM Employees
+UNION ALL
+SELECT manager_id, manager_name FROM Managers;
+
+template:
+SELECT column1, column2 FROM table1
+UNION ALL
+SELECT column1, column2 FROM table2;
