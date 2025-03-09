@@ -1,0 +1,51 @@
+SELECT
+    Date,
+    Sales,
+    AVG(Sales) OVER(ORDER BY Date ROWS BETWEEN 2 PRECEDING AND 0 FOLLOWING) AS MovingAvg
+FROM
+    SalesData;
+
+/*
+In the context of SQL and data analysis, "sliding windows" usually refer to a technique 
+used with window functions to create a dynamic or moving window of rows within a result 
+set. These sliding windows are especially useful when you want to perform calculations 
+that involve a changing set of rows for each row in your result set. Sliding windows 
+allow you to calculate values based on a range of rows relative to the current row, and 
+this range "slides" or moves as you iterate through the result set.
+Common use cases for sliding windows include calculating moving averages, cumulative sums, 
+or other time-based or sequential analytics.
+Here's a basic explanation of how sliding windows work:
+1. **Sliding Window Frame**: A sliding window frame is defined within the `OVER()` 
+    clause of a window function. This frame specifies the range of rows that are 
+    considered for the calculation of the window function for each row.
+2. **ORDER BY**: You usually specify an `ORDER BY` clause within the `OVER()` clause to 
+    define the sorting criteria that determine the order of rows. This order is essential 
+    for sliding windows because it determines which rows are considered as you slide the 
+    window.
+3. **Rows to Include**: The sliding window frame can be defined to include a certain 
+    number of rows preceding and/or following the current row. This range can be static 
+    (e.g., the previous 3 rows and the next 3 rows) or dynamic (e.g., all rows within the 
+    last 7 days).
+4. **Sliding Effect**: As you move through the result set, the sliding window frame 
+    "slides" along with the current row. For each row in the result set, the frame adjusts 
+    to include the appropriate set of rows based on the ordering criteria.
+Here's an example of calculating a 3-day moving average of sales using a sliding window 
+frame:
+*/
+SELECT
+    Date,
+    Sales,
+    AVG(Sales) OVER(ORDER BY Date ROWS BETWEEN 2 PRECEDING AND 0 FOLLOWING) AS MovingAvg
+FROM
+    SalesData;
+/*
+In this query:
+- `ORDER BY Date` specifies that rows should be ordered by the "Date" column.
+- `ROWS BETWEEN 2 PRECEDING AND 0 FOLLOWING` defines the sliding window frame, including 
+    the current row and the two preceding rows. This creates a 3-day moving window.
+As the query processes each row, the window frame adjusts to include the current row and 
+the two previous rows, calculating the moving average for each date in the result set.
+Sliding windows are a valuable tool for time-series analysis and sequential data processing 
+in SQL, as they allow you to capture trends and patterns within a dynamic context as you 
+move through the data.
+*/
