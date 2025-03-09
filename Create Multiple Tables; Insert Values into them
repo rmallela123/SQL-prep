@@ -1,0 +1,45 @@
+# CREATE ECUSTOMER TABLE, using current variables
+create table ecustomer (customer_id number,customer_name varchar2(80),age number,city varchar2(80));
+
+# CREATE EORDERS TABLE, using current variables
+create table eorders (order_id number,order_date date,product_name varchar2(100),customer_id number);
+
+# CREATE MANAGERS TABLE, using current variables
+create table managers (employee_id number, employee_name varchar2(80), reporting_manager_id number);
+_______________________________________________
+
+# Insert values into ECUSTOMER Table
+
+insert into ecustomer values(1,'Virat',32,'Delhi');
+insert into ecustomer values(2,'Rohit',21,'Mumbai');
+insert into ecustomer values(3,'Rahul',25,'Bangalore');
+insert into ecustomer values(4,'Ashwin',20,'Chennai');
+insert into ecustomer values(5,'Geetha',35,'Ahmedabad');
+insert into ecustomer values(6,'Saina',19,'Bangalore');
+insert into ecustomer values(7,'Sindhu',22,'Hyderabad');
+
+commit
+__________________________________________
+
+# Insert values into EORDERS Table
+
+insert into eorders values(101,'02-02-2020','Keyboard',3);
+insert into eorders values(102,'06-03-2020','Monitor',5);
+insert into eorders values(103,'21-04-2020','Hard Disk',4);
+insert into eorders values(104,'23-04-2020','Pen Drive',3);
+insert into eorders values(105,'08-05-2020','Laptop',1);
+insert into eorders values(106,'06-06-2020','Pen Drive',6);
+insert into eorders values(107,'15-07-2020','Laptop',7);
+insert into eorders values(108,'20-08-2020','CD Drive',8);
+
+commit
+_________________________________________
+
+# Insert into MANAGERS table
+
+insert into managers values(1,'Kapil',NULL);
+insert into managers values(2,'Azar',1);
+insert into managers values(3,'Sourav',2);
+insert into managers values(4,'Rahul',2);
+insert into managers values(5,'Mahendra',3);
+insert into managers values(6,'Virat',5);
