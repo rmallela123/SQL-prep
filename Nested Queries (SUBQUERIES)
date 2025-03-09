@@ -1,0 +1,15 @@
+-- Find employees who have the highest salary in their respective department
+SELECT employee_name, salary, department_id 
+FROM employees 
+WHERE salary = (SELECT MAX(salary) 
+                FROM employees e2 
+                WHERE e2.department_id = employees.department_id);
+
+________________________
+--- Template ----
+
+SELECT column1, column2 
+FROM table1 
+WHERE column2 = (SELECT aggregate_function(column2) 
+                 FROM table1 AS alias 
+                 WHERE alias.column3 = table1.column3);
