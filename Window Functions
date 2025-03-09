@@ -1,23 +1,9 @@
-SELECT
-    Department,
-    EmployeeName,
-    Salary,
-    AVG(Salary) OVER(
-                    PARTITION BY Department 
-                    ORDER BY Salary
-                    ) AS AvgSalaryByDept
-FROM
-    EmployeeTable;
 
-/*
-Window functions, also known as windowed or analytic functions, are a powerful feature 
-in SQL that allow you to perform calculations across a set of rows that are related to 
-the current row within a result set. These functions operate on a "window" or "frame" 
-of rows that are defined by an OVER() clause, and they can help you perform various 
-analytical tasks without the need for complex self-joins or subqueries.
-Here's a basic overview of how window functions work:
-1. Syntax:
-   Window functions are typically used in the SELECT clause of a SQL query. The syntax 
+WINDOW FUNCTIONS:  perform calculations across a set of rows that are related to 
+the current row within a result set. These functions operate on a window of rows.
+
+SYNTAX:
+1. Window functions are typically used in the SELECT clause of a SQL query. The syntax 
    for a window function includes the function itself followed by the OVER() clause, 
    which defines the window or frame over which the function operates.
 2. Partitioning:
@@ -38,7 +24,7 @@ Here's a basic overview of how window functions work:
 Here's an example using a simple window function to calculate the average salary for each 
 department:
 */
-
+______________________________________
 SELECT
     Department,
     EmployeeName,
@@ -58,25 +44,95 @@ In this example:
 - The `ORDER BY` clause sorts the rows within each partition by "Salary."
 - The result, "AvgSalaryByDept," provides the average salary for each employee within 
     their respective department.
-Commonly used window functions in SQL include `SUM()`, `COUNT()`, `RANK()`, 
-`DENSE_RANK()`, `ROW_NUMBER()`, `LEAD()`, and `LAG()`, among others. These
-functions can be used to perform a wide range of analytical operations, including 
-ranking, pagination, running totals, and comparisons between rows.
-Window functions are a powerful tool for solving complex analytical problems 
-efficiently and elegantly in SQL, allowing you to perform calculations over a 
-specific set of rows while retaining the original structure of your query's 
-result set.
+
+___________________________________________________________
+COMMON SQL WINDOW FUNCTIONS: include SUM(), COUNT(), RANK(), 
+DENSE_RANK(), ROW_NUMBER(), LEAD(), and LAG(), among others. 
+____________________________________________________________
+-- SUM - running total in window
+-- Calculate a running total of salaries within each department
+
+SELECT employee_id, employee_name, department, salary,
+       SUM(salary) OVER (PARTITION BY department ORDER BY salary DESC) AS running_total
+FROM Employees;
+_______________________________
+SELECT column1, column2, 
+       SUM(column3) OVER (PARTITION BY partition_column ORDER BY order_column) AS alias_name
+FROM table_name;
+------>
+over () = window function - define a window (set of rows) for operation; allows for aggregations & ranking functions without collapsing rows.
+alias name: new column name
+partition column: divides result into partitions based on specified column.
+
+--------------------------------------
+-- COUNT() - count rows in window
+-- Count the number of employees in each department
+
+SELECT employee_id, employee_name, department,
+       COUNT(*) OVER (PARTITION BY department) AS department_count
+FROM Employees;
+_____________
+SELECT column1, column2, 
+       COUNT(*) OVER (PARTITION BY partition_column) AS alias_name
+FROM table_name;
+--------------------------------------
+-- RANK() - rank with gaps for same ranks between same values for multiple rows.
+-- Rank employees based on salary within their department (same salary gets same rank, but gaps exist)
+SELECT employee_id, employee_name, department, salary,
+       RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS salary_rank
+FROM Employees;
+
+Rank Example: 1,2,2,4.
+_____________
+SELECT column1, column2, 
+       RANK() OVER (PARTITION BY partition_column ORDER BY order_column) AS alias_name
+FROM table_name;
+--------------------------------------
+-- DENSE_RANK() - Rank without gaps for same ranks between same values for multiple rows.
+-- Rank employees based on salary within their department (same salary gets same rank, no gaps)
+SELECT employee_id, employee_name, department, salary,
+       DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dense_rank
+FROM Employees;
+
+Rank Example: 1,2,2,3.
+_____________
+SELECT column1, column2, 
+       DENSE_RANK() OVER (PARTITION BY partition_column ORDER BY order_column) AS alias_name
+FROM table_name;
+-------------------------------------
+-- ROW_NUMBER() - Unique # for each Row. No ties. No skipping.
+SELECT employee_id, employee_name, department, salary,
+       ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS row_num
+FROM Employees;
+_____________
+employee_id	employee_name	department	salary	row_num
+101	            Alice	        IT	     90000	   1
+102	Bob	IT	85000	2
+103	Charlie	IT	85000	3
+104	David	IT	80000	4
+-------------------------------------
+-- LEAD() - Look at Next Row; Retrieve value from next row. If no next row, then NULL or default.
+_____________
+SELECT employee_id, employee_name, salary,
+       LEAD(salary, 1, 0) OVER (ORDER BY salary DESC) AS next_salary
+FROM Employees;
+-------------------------------------
+SELECT column1, column2, 
+       LEAD(column3, offset, default_value) OVER (ORDER BY order_column) AS alias_name
+FROM table_name;
+_____________
+-- LAG() - Look Behind in a Window; retrieves value from previous row; if no previous row, then return NULL or default.
+SELECT employee_id, employee_name, salary,
+       LAG(salary, 1, 0) OVER (ORDER BY salary DESC) AS previous_salary
+FROM Employees;
+_____________
+SELECT column1, column2, 
+       LAG(column3, offset, default_value) OVER (ORDER BY order_column) AS alias_name
+FROM table_name;
+-------------------------------------
 GROUP BY is primarily used for aggregating data and reducing the result set by 
 grouping similar rows, while window functions are more suited for performing 
 analytical calculations and comparisons between rows without altering the number 
 of rows in the output.
 */
 
--- RANK
-
-SELECT
-    date,
-    (home_goal + away_goal) AS goals,
-    RANK() OVER(ORDER BY home_goal + away_goal DESC) AS goals_rank
-FROM match
-WHERE season = '2011/2012';
