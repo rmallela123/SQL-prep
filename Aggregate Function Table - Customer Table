@@ -1,0 +1,14 @@
+SELECT 
+    SUM(salary) AS SUM, 
+    MIN(salary) AS MIN, 
+    MAX(salary) AS MAX 
+FROM EmployeeDepartment;
+
+
+SYNTAX:
+
+SELECT 
+  SUM(column_name) AS assigned_sum_variable,
+  MIN(column_name) AS assigned_min_variable,
+  MAX(column_name) AS assigned_max_variable
+FROM table_name;
