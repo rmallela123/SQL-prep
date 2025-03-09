@@ -1,0 +1,23 @@
+-- select column1, nvl(column_name, default_value) as alias_name from table_name;
+* NVL(column_name, default_value): Replaces NULL values in column_name with default_value.
+* AS alias_name: Renames the result column for better readability.
+
+
+-- Inserting a new record into the PERSON table with specific values.
+-- 'null' values are inserted for columns where data is not provided.
+
+INSERT INTO PERSON VALUES(8,'Ramu',25,'Male',null,5,null);
+
+commit
+
+-- Selecting specific columns (person_name, weight, and marks) from the PERSON table 
+-- where the personid is 8. This will return null if weight or marks are missing.
+
+select person_name,weight,marks from person where personid = 8
+
+
+-- Selecting person_name and using NVL function to replace null values with default values.
+-- If 'weight' is NULL, it will be replaced with 75.
+-- If 'marks' is NULL, it will be replaced with 90.
+
+select person_name,nvl(weight,75) as weight,nvl(marks,90) as marks from person --where personid = 8
