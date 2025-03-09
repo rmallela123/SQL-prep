@@ -1,45 +1,58 @@
 # CREATE ECUSTOMER TABLE, using current variables
-create table ecustomer (customer_id number,customer_name varchar2(80),age number,city varchar2(80));
+create table ecustomer (
+    customer_id number,         -- Primary key identifier (similar to Python int type)
+    customer_name varchar2(80), -- String field with max 80 chars (like Python str with length limit)
+    age number,                 -- Numeric field (equivalent to Python int)
+    city varchar2(80)           -- Another string field (Python str equivalent)
+);
 
 # CREATE EORDERS TABLE, using current variables
-create table eorders (order_id number,order_date date,product_name varchar2(100),customer_id number);
+create table eorders (
+    order_id number,           -- Primary key (Python int equivalent)
+    order_date date,           -- Date field (similar to Python datetime.date object)
+    product_name varchar2(100),-- String with 100 char limit (Python str with max length)
+    customer_id number         -- Foreign key to link to ecustomer (like Python object references)
+);
 
 # CREATE MANAGERS TABLE, using current variables
-create table managers (employee_id number, employee_name varchar2(80), reporting_manager_id number);
+create table managers (
+    employee_id number,         -- Primary key (Python int equivalent)
+    employee_name varchar2(80), -- String field (Python str equivalent)
+    reporting_manager_id number -- Self-referential foreign key (like Python recursive data structures)
+);
 _______________________________________________
 
 # Insert values into ECUSTOMER Table
-
-insert into ecustomer values(1,'Virat',32,'Delhi');
-insert into ecustomer values(2,'Rohit',21,'Mumbai');
-insert into ecustomer values(3,'Rahul',25,'Bangalore');
-insert into ecustomer values(4,'Ashwin',20,'Chennai');
-insert into ecustomer values(5,'Geetha',35,'Ahmedabad');
-insert into ecustomer values(6,'Saina',19,'Bangalore');
-insert into ecustomer values(7,'Sindhu',22,'Hyderabad');
-
-commit
+# Similar to Python list.append() or dictionary assignment operations
+# Each insert is like adding a new item to a Python collection
+insert into ecustomer values(1,'Virat',32,'Delhi');    -- Row 1: Adding tuple-like data
+insert into ecustomer values(2,'Rohit',21,'Mumbai');   -- Row 2: Similar to Python tuples
+insert into ecustomer values(3,'Rahul',25,'Bangalore');-- Row 3: Each value matches column data type
+insert into ecustomer values(4,'Ashwin',20,'Chennai'); -- Row 4: Values in order of columns defined
+insert into ecustomer values(5,'Geetha',35,'Ahmedabad');-- Row 5
+insert into ecustomer values(6,'Saina',19,'Bangalore');-- Row 6: Note multiple records for 'Bangalore'
+insert into ecustomer values(7,'Sindhu',22,'Hyderabad');-- Row 7
+commit                                                 -- Equivalent to saving changes in Python
 __________________________________________
 
 # Insert values into EORDERS Table
-
-insert into eorders values(101,'02-02-2020','Keyboard',3);
-insert into eorders values(102,'06-03-2020','Monitor',5);
-insert into eorders values(103,'21-04-2020','Hard Disk',4);
-insert into eorders values(104,'23-04-2020','Pen Drive',3);
-insert into eorders values(105,'08-05-2020','Laptop',1);
-insert into eorders values(106,'06-06-2020','Pen Drive',6);
-insert into eorders values(107,'15-07-2020','Laptop',7);
-insert into eorders values(108,'20-08-2020','CD Drive',8);
-
-commit
+# Similar to extending a Python list with new records
+insert into eorders values(101,'02-02-2020','Keyboard',3);-- Order for customer_id 3 (Rahul)
+insert into eorders values(102,'06-03-2020','Monitor',5); -- Date stored in DD-MM-YYYY format (Python strftime)
+insert into eorders values(103,'21-04-2020','Hard Disk',4);-- Foreign key links to ecustomer table
+insert into eorders values(104,'23-04-2020','Pen Drive',3);-- Another order for Rahul (customer_id 3)
+insert into eorders values(105,'08-05-2020','Laptop',1);  -- Order for Virat (customer_id 1)
+insert into eorders values(106,'06-06-2020','Pen Drive',6);-- Order for Saina (customer_id 6)
+insert into eorders values(107,'15-07-2020','Laptop',7);  -- Order for Sindhu (customer_id 7)
+insert into eorders values(108,'20-08-2020','CD Drive',8);-- Note: customer_id 8 doesn't exist in ecustomer!
+commit                                                    -- Similar to Python file.close() to save changes
 _________________________________________
 
 # Insert into MANAGERS table
-
-insert into managers values(1,'Kapil',NULL);
-insert into managers values(2,'Azar',1);
-insert into managers values(3,'Sourav',2);
-insert into managers values(4,'Rahul',2);
-insert into managers values(5,'Mahendra',3);
-insert into managers values(6,'Virat',5);
+# Here we see hierarchical data - like a Python tree structure
+insert into managers values(1,'Kapil',NULL);             -- Root node (no manager, like None in Python)
+insert into managers values(2,'Azar',1);                 -- Azar reports to Kapil (like parent-child in Python)
+insert into managers values(3,'Sourav',2);               -- Building a tree-like structure
+insert into managers values(4,'Rahul',2);                -- Both Sourav and Rahul report to Azar
+insert into managers values(5,'Mahendra',3);             -- Mahendra reports to Sourav (Python tree traversal)
+insert into managers values(6,'Virat',5);                -- Virat reports to Mahendra (nested relationship)
