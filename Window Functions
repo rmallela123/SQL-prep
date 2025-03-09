@@ -1,0 +1,82 @@
+SELECT
+    Department,
+    EmployeeName,
+    Salary,
+    AVG(Salary) OVER(
+                    PARTITION BY Department 
+                    ORDER BY Salary
+                    ) AS AvgSalaryByDept
+FROM
+    EmployeeTable;
+
+/*
+Window functions, also known as windowed or analytic functions, are a powerful feature 
+in SQL that allow you to perform calculations across a set of rows that are related to 
+the current row within a result set. These functions operate on a "window" or "frame" 
+of rows that are defined by an OVER() clause, and they can help you perform various 
+analytical tasks without the need for complex self-joins or subqueries.
+Here's a basic overview of how window functions work:
+1. Syntax:
+   Window functions are typically used in the SELECT clause of a SQL query. The syntax 
+   for a window function includes the function itself followed by the OVER() clause, 
+   which defines the window or frame over which the function operates.
+2. Partitioning:
+   You can partition the result set into smaller groups or partitions based on one or
+    more columns. The window function operates independently within each partition. You 
+    define the partitions within the OVER() clause using the PARTITION BY clause.
+3. Ordering:
+   You can specify the order in which rows are processed within each partition. This 
+   determines the "window" of rows that the function operates on. The ORDER BY clause 
+   within the OVER() clause defines the sorting criteria.
+4. Calculation:
+   The window function performs a calculation on the rows within the defined window or 
+   frame. The function's result is then assigned to each row in the result set, based on 
+   the calculation applied to its associated window.
+5. Result Set:
+   The result of the window function is included as part of the output result set. It can 
+   be used alongside other columns in the SELECT clause.
+Here's an example using a simple window function to calculate the average salary for each 
+department:
+*/
+
+SELECT
+    Department,
+    EmployeeName,
+    Salary,
+    AVG(Salary) OVER(
+                    PARTITION BY Department 
+                    ORDER BY Salary
+                    ) AS AvgSalaryByDept
+FROM
+    EmployeeTable;
+
+/*
+In this example:
+- The `AVG()` function is the window function.
+- The `PARTITION BY` clause divides the result set into partitions based on the 
+    "Department" column.
+- The `ORDER BY` clause sorts the rows within each partition by "Salary."
+- The result, "AvgSalaryByDept," provides the average salary for each employee within 
+    their respective department.
+Commonly used window functions in SQL include `SUM()`, `COUNT()`, `RANK()`, 
+`DENSE_RANK()`, `ROW_NUMBER()`, `LEAD()`, and `LAG()`, among others. These
+functions can be used to perform a wide range of analytical operations, including 
+ranking, pagination, running totals, and comparisons between rows.
+Window functions are a powerful tool for solving complex analytical problems 
+efficiently and elegantly in SQL, allowing you to perform calculations over a 
+specific set of rows while retaining the original structure of your query's 
+result set.
+GROUP BY is primarily used for aggregating data and reducing the result set by 
+grouping similar rows, while window functions are more suited for performing 
+analytical calculations and comparisons between rows without altering the number 
+of rows in the output.
+*/
+
+-- RANK
+
+SELECT
+    date,
+    (home_goal + away_goal) AS goals,
+    RANK() OVER(ORDER BY home_goal + away_goal DESC) AS goals_rank
+FROM match
+WHERE season = '2011/2012';
