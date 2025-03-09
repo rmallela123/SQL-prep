@@ -1,0 +1,38 @@
+-- Categorizing employees based on salary and department
+
+SELECT employee_name,
+       CASE 
+           WHEN department_id = 1 THEN 
+               CASE 
+                   WHEN salary > 70000 THEN 'High Salary'
+                   WHEN salary BETWEEN 40000 AND 70000 THEN 'Medium Salary'
+                   ELSE 'Low Salary'
+               END
+           WHEN department_id = 2 THEN 
+               CASE 
+                   WHEN salary > 80000 THEN 'High Salary'
+                   WHEN salary BETWEEN 50000 AND 80000 THEN 'Medium Salary'
+                   ELSE 'Low Salary'
+               END
+           ELSE 'Other Department'
+       END AS salary_category
+FROM employees;
+__________________________________________
+-- Template ---
+
+SELECT column1,
+       CASE 
+           WHEN condition1 THEN 
+               CASE 
+                   WHEN sub_condition1 THEN 'Result1'
+                   WHEN sub_condition2 THEN 'Result2'
+                   ELSE 'Default_Result'
+               END
+           WHEN condition2 THEN 
+               CASE 
+                   WHEN sub_condition3 THEN 'Result3'
+                   ELSE 'Default_Result2'
+               END
+           ELSE 'Other_Result'
+       END AS alias_name
+FROM table_name;
