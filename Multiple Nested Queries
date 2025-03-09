@@ -1,0 +1,17 @@
+-- Retrieve employees who earn more than the average salary of their department
+SELECT employee_name 
+FROM employees 
+WHERE salary > (SELECT AVG(salary) 
+                FROM employees 
+                WHERE department_id = (SELECT department_id 
+                                      FROM departments 
+                                      WHERE department_name = 'Sales'));
+____________________________________________
+-- Template -------
+SELECT column1 
+FROM table1 
+WHERE column2 > (SELECT aggregate_function(column2) 
+                 FROM table1 
+                 WHERE column3 = (SELECT column3 
+                                  FROM table2 
+                                  WHERE column4 = 'some_value'));
